@@ -9,3 +9,15 @@ describe('GET /health', () => {
     expect(res.body).toEqual({ ok: true });
   });
 });
+
+describe('CORS', () => {
+  it('permite el origen configurado', async () => {
+    const res = await request(app).get('/health').set('Origin', 'http://localhost:5173');
+    expect(res.headers['access-control-allow-origin']).toBe('http://localhost:5173');
+  });
+
+  it('no agrega cabeceras CORS a un origen desconocido', async () => {
+    const res = await request(app).get('/health').set('Origin', 'http://ejemplo.com');
+    expect(res.headers['access-control-allow-origin']).toBeUndefined();
+  });
+});
