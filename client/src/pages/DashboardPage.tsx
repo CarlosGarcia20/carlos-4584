@@ -1,5 +1,6 @@
 import { Button } from '../components/Button';
 import { DashboardCharts } from '../components/charts/DashboardCharts';
+import { RechargeCard } from '../components/RechargeCard';
 import { useAuth } from '../hooks/UseAuth';
 import { formatCurrency } from '../utils/formatCurrency';
 
@@ -40,6 +41,7 @@ export function DashboardPage() {
             </section>
 
             <DashboardCharts />
+            <RechargeCard />
          </main>
       </div>
    );
