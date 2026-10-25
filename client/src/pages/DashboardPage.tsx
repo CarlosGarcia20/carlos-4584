@@ -1,4 +1,5 @@
 import { Button } from '../components/Button';
+import { DashboardCharts } from '../components/charts/DashboardCharts';
 import { useAuth } from '../hooks/UseAuth';
 import { formatCurrency } from '../utils/formatCurrency';
 
@@ -25,7 +26,7 @@ export function DashboardPage() {
             </div>
          </header>
 
-         <main className="mx-auto max-w-5xl px-4 py-8">
+         <main className="mx-auto max-w-5xl space-y-6 px-4 py-8">
             <section
                aria-labelledby="balance-title"
                className="rounded-2xl border border-slate-800 bg-slate-900/60 p-6"
@@ -33,8 +34,12 @@ export function DashboardPage() {
                <h2 id="balance-title" className="text-sm font-medium text-slate-400">
                   Saldo actual
                </h2>
-               <p className="mt-1 text-4xl font-bold text-white">{formatCurrency(user.balance)}</p>
+               <p aria-live='polite' className="mt-1 text-4xl font-bold text-white">
+                  {formatCurrency(user.balance)}
+               </p>
             </section>
+
+            <DashboardCharts />
          </main>
       </div>
    );
