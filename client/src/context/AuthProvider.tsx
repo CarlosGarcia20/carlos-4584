@@ -22,8 +22,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setUser(null);
    }, []);
 
+   const addFunds = useCallback((amount: number) => {
+      setUser(authService.addFunds(amount));
+   }, []);
+
+
    const value = useMemo(
-      () => ({ user, register, login, logout }),
+      () => ({ user, register, login, logout, addFunds }),
       [user, register, login, logout],
    );
 

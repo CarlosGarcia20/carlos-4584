@@ -105,3 +105,20 @@ export function getCurrentUser(): PublicUser | null {
 export function logout(): void {
   clearSession();
 }
+
+const roundMoney = (value: number): number => Math.round(value * 100) / 100;
+
+export function addFunds(amount: number): PublicUser | null {
+  if (!Number.isFinite(amount) || amount <= 0) {
+    throw new Error('El monto debe ser un número mayor que cero');
+  }
+
+  const current = getCurrentUser();
+  if (!current) return null;
+
+  const users = loadUsers().map((user) =>
+    user.id === current.id ? { ...user, balance: roundMoney(user.balance + amount) } : user,
+  );
+  saveUsers(users);
+  return getCurrentUser();
+}

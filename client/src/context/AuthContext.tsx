@@ -8,6 +8,7 @@ export interface AuthContextValue {
   register: (input: RegisterInput) => Promise<RegisterResult>;
   login: (input: LoginInput) => Promise<LoginResult>;
   logout: () => void;
+  addFunds: (amount: number) => void;
 }
 
 export const AuthContext = createContext<AuthContextValue | null>(null);
