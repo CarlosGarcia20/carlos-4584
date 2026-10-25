@@ -25,8 +25,6 @@ const sessionSchema: z.ZodType<Session> = z.object({
     expiresAt: z.number(),
 });
 
-// Lo guardado en LocalStorage puede estar corrupto o manipulado:
-// se valida y, si no cumple la forma esperada, se trata como vacío.
 function readJson<T>(key: string, schema: z.ZodType<T>): T | null {
     try {
         const raw = localStorage.getItem(key);
@@ -56,4 +54,15 @@ export function saveSession(session: Session): void {
 
 export function clearSession(): void {
     localStorage.removeItem(STORAGE_KEYS.session);
+}
+
+export interface PaymentCard {
+    cardNumber: string;
+    cvv: string;
+}
+
+export const paymentCardKey = (userId: string) => `snail:card:${userId}`;
+
+export function savePaymentCard(userId: string, card: PaymentCard): void {
+    localStorage.setItem(paymentCardKey(userId), JSON.stringify(card));
 }
